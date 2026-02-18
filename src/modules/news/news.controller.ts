@@ -34,16 +34,17 @@ const getAllNews = async (req: Request, res: Response) => {
 
 const getSingleNews = async (req: Request, res: Response) => {
     try {
-        const slug = req.params.slug as string;
+        const { slug } = req.params;
+        
+        const decodedSlug = decodeURIComponent(slug);
 
-        if (!slug) {
-            return res.status(400).json({ success: false, message: "Slug is required" });
-        }
-
-        const result = await NewsService.getNewsBySlug(slug);
+        const result = await NewsService.getNewsBySlug(decodedSlug);
 
         if (!result) {
-            return res.status(404).json({ success: false, message: "News not found" });
+            return res.status(404).json({ 
+                success: false, 
+                message: "News not found in database" 
+            });
         }
 
         res.status(200).json({ success: true, data: result });

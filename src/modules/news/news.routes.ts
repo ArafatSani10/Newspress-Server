@@ -6,8 +6,10 @@ const router = express.Router();
 
 router.post("/create-news", auth(UserRole.ADMIN), NewsController.createNews);
 router.get("/", NewsController.getAllNews);
-router.get("/:slug", NewsController.getSingleNews);
-router.patch("/:id", NewsController.updateNews);
-router.delete("/:id", NewsController.deleteNews);
+
+router.get("/slug/:slug", NewsController.getSingleNews); 
+
+router.patch("/update-news/:id", NewsController.updateNews);
+router.delete("/:id", auth(UserRole.ADMIN), NewsController.deleteNews);
 
 export const NewsRoutes: any = router;

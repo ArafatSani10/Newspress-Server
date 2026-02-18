@@ -4,6 +4,7 @@ import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth";
 import { CategoryRoutes } from "./modules/category/category.routes";
 import { NewsRoutes } from "./modules/news/news.routes";
+import { CommentRoutes } from "./modules/comment/comment.routes";
 
 const app: Application = express();
 app.use(cors({
@@ -19,6 +20,7 @@ app.all("/api/auth/*", (req, res) => {
 
 app.use("/api/v1/categories", CategoryRoutes);
 app.use("/api/v1/news", NewsRoutes);
+app.use("/api/v1/comments", CommentRoutes);
 
 app.get("/", (req, res) => {
     res.send("Newspress server  is running ...");
